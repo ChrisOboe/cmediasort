@@ -25,7 +25,7 @@ def parse_arguments():
     """Returns a dict of command line arguments."""
 
     parser = argparse.ArgumentParser(
-        prog='mediasort',
+        prog='cmediasort',
         description='Scrapes metadata for movies and episodes from TMDb '
         'by guessing the title from scene standard naming conventions.\n'
         'This product uses the TMDb API but is not endorsed or certified '

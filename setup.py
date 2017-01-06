@@ -8,26 +8,29 @@ def readme():
         return f.read()
 
 setup(
-    name='mediasort',
-    version='0.2.0',
+    name='cmediasort',
+    version='0.2.1',
     author='Chris Oboe',
     author_email='chrisoboe@eml.cc',
     description='A tool for automaticly sorting movies and episodes',
     license='GPLv3+',
-    url='https://git.smackmack.industries/ChrisOboe/MediaSort',
-    download_url='https://git.smackmack.industries/ChrisOboe/MediaSort/archive/v0.2.0.tar.gz',
-    packages=['mediasort'],
+    url='https://github.com/ChrisOboe/cmediasort',
+    download_url='https://github.com/ChrisOboe/cmediasort/archive/v0.2.1.tar.gz',
+    packages=['cmediasort'],
     install_requires=[
-        'python-dateutil',
-        'tmdbsimple',
-        'guessit'
+        'mediasort'
     ],
-    classifiers = [
+    classifiers=[
         "Development Status :: 4 - Beta",
-        "Intended Audience :: Developers",
+        "Intended Audience :: End Users/Desktop",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3.5",
         "Topic :: Utilities",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"
     ],
+    entry_points={
+        'console_scripts': [
+            'cmediasort = cmediasort.__main__:main'
+        ]
+    }
 )
