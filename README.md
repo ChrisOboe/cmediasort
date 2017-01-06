@@ -1,11 +1,12 @@
-# MediaSort Readme
-MediaSort is a tool which sorts and downloads metadata for movies and episodes
+# CMediaSort Readme
+CMediaSort is a tool which sorts and downloads metadata for movies and episodes
 based on their filename in a fully automated way.
 
-It's written in python and uses the guessit library for guessing informations
-based on filename / foldername.
-It then uses this informations to scrape the metadata from TMDb by using the
-tmdbsimple library.
+It's the cli version for the MediaSort python library which itself is based
+on the guessit library for guessing informations by analyzing the
+file-/ foldername. It then uses this informations to scrape the metadata from
+TMDb by using the tmdbsimple library. It's also able to download images via
+TMDb or fanart.tv
 
 This tool heavily depends on [TMDb](https://www.themoviedb.org/) for getting
 informations and [fanart.tv](https://fanart.tv/) for getting images.
@@ -15,7 +16,7 @@ This product uses the TMDb API but is not endorsed or certified by TMDb.
 
 ## Usage
 ```
-mediasort [-h] [-v] [-c CONFIG] [-p] source
+cmediasort [-h] [-v] [-c CONFIG] [-p] source
 ```
 
 ### Arguments
@@ -31,4 +32,4 @@ source: the path to the media files
 ### Important
 Since this software is in a pretty early state configuration and command line
 arguments can change often. So if you want how to use this program, take a look
-into mediasortcli/config.py
+into cmediasort/config.py
