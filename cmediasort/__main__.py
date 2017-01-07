@@ -69,6 +69,10 @@ def main():
         settings['videofiles']['allowed_extensions'],
         settings['videofiles']['minimal_file_size'])
 
+    if videofiles is None:
+        print("No videofile found!")
+        sys.exit(0)
+
     for videofile in videofiles:
         mediasort.sort(videofile, settings)
 
