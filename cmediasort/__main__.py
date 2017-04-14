@@ -21,11 +21,14 @@ import sys
 import os
 import argparse
 import yaml
+import logging
 from appdirs import user_config_dir
 
 import mediasort
 
+
 PROG = "cmediasort"
+ARGS = None
 
 
 def parse_arguments():
@@ -50,6 +53,16 @@ def parse_arguments():
         '--interactive',
         action='store_true',
         help="Asks the user if something is not clear")
+    parser.add_argument(
+        '-v',
+        '--verbose',
+        action='store_true',
+        help="Shows a lot more output")
+    parser.add_argument(
+        '-a',
+        '--ask',
+        action='store_true',
+        help="Asks before sorting")
 
     return vars(parser.parse_args())
 
@@ -93,25 +106,69 @@ def find(path, extensions, filesize):
 
 def identificator_callback(identificator_list, medianame):
     """ the identificator callback function for interactive mode """
-    c = 1
-    for entry in identificator_list:
-        print("{0}: {1}".format(c, entry['title']))
-        c = c + 1
-    selection = -1
-    while selection < 1 or selection >= c:
-        try:
-            selection = int(input("Select your {0}: ".format(medianame)))
-        except ValueError:
-            pass
-    selection = selection - 1
-    return identificator_list[selection]['id']
+    if len(identificator_list) > 1:
+        c = 1
+        for entry in identificator_list:
+            print("{0}: {1}".format(c, entry['title']))
+            c = c + 1
+        print("i: Ignore this {0}".format(medianame))
+        selection = -1
+        while selection < 0 or selection >= c-1:
+            print("Select your {0}: ".format(medianame), end='')
+            sys.stdout.flush()
+            sys.stdin.flush()
+            choice = sys.stdin.readline().rstrip()
+            if choice == "i":
+                raise mediasort.error.CallbackBreak()
+            else:
+                try:
+                    selection = int(choice)
+                    selection = selection - 1
+                except ValueError:
+                    pass
+        return identificator_list[selection]['id']
+    else:
+        if not ARGS['ask']:
+            return identificator_list[0]['id']
+        else:
+            while True:
+                print("Is {0} your {1}? [Yes/no] ".format(
+                    identificator_list[0]['title'],
+                    medianame), end=''
+                )
+                sys.stdout.flush()
+                sys.stdin.flush()
+                choice = sys.stdin.readline().lower().rstrip()
+                if choice == "yes" or choice == "":
+                    return identificator_list[0]['id']
+                elif choice == "no":
+                    raise mediasort.error.CallbackBreak()
+                else:
+                    print("Didn't understood your response")
+
+
+def init_logging(debug):
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger('mediasort')
+    logger.propagate = False
+    logger.setLevel(logging.INFO)
+    format = '%(message)s'
+    console = logging.StreamHandler()
+    if debug:
+        logger.setLevel(logging.DEBUG)
+        format = '%(levelname)s: %(message)s'
+    console.setFormatter(logging.Formatter(format))
+    logger.addHandler(console)
 
 
 def main():
     """ Main function for entry point """
     # load config
-    args = parse_arguments()
-    settings = parse_configfile(args['config'])
+    global ARGS
+    ARGS = parse_arguments()
+    settings = parse_configfile(ARGS['config'])
+
+    init_logging(ARGS['verbose'])
 
     # modify settings
     for mediatype in settings['paths']:
@@ -129,13 +186,13 @@ def main():
         'identificator': None
     }
 
-    if args['interactive']:
+    if ARGS['interactive'] or ARGS['ask']:
+        print("Running in interactive mode")
         callbacks['identificator'] = identificator_callback
-
 
     # get list of files
     videofiles = find(
-        args['source'],
+        ARGS['source'],
         settings['videofiles']['allowed_extensions'],
         settings['videofiles']['minimal_file_size'])
 
@@ -157,4 +214,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        exit()
