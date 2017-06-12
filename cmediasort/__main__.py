@@ -63,6 +63,11 @@ def parse_arguments():
         '--ask',
         action='store_true',
         help="Asks before sorting")
+    parser.add_argument(
+        '-s',
+        '--simulate',
+        action='store_true',
+        help="Don't really do anything")
 
     return vars(parser.parse_args())
 
