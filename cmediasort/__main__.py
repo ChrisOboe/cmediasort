@@ -47,7 +47,8 @@ def parse_arguments():
         '-c',
         '--config',
         default="{0}/config.yaml".format(user_config_dir(PROG)),
-        help="the config file")
+        help="the config file. Defaults to config.yaml in the default"
+        "config dir of your os.")
     parser.add_argument(
         '-i',
         '--interactive',
@@ -63,11 +64,6 @@ def parse_arguments():
         '--ask',
         action='store_true',
         help="Asks before sorting")
-    parser.add_argument(
-        '-s',
-        '--simulate',
-        action='store_true',
-        help="Don't really do anything")
 
     return vars(parser.parse_args())
 

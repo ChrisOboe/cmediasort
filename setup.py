@@ -9,16 +9,17 @@ def readme():
 
 setup(
     name='cmediasort',
-    version='0.2.1',
+    version='0.7.0',
     author='Chris Oboe',
     author_email='chrisoboe@eml.cc',
     description='A tool for automaticly sorting movies and episodes',
     license='GPLv3+',
     url='https://github.com/ChrisOboe/cmediasort',
-    download_url='https://github.com/ChrisOboe/cmediasort/archive/v0.2.1.tar.gz',
+    download_url='https://github.com/ChrisOboe/cmediasort/archive/v0.7.0.tar.gz',
     packages=['cmediasort'],
     install_requires=[
         'mediasort'
+        'appdirs'
     ],
     classifiers=[
         "Development Status :: 4 - Beta",
