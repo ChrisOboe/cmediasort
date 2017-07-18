@@ -18,9 +18,9 @@ setup(
     download_url='https://github.com/ChrisOboe/cmediasort/archive/v0.7.1.tar.gz',
     packages=['cmediasort'],
     install_requires=[
-        'mediasort'
-        'appdirs'
-        'yaml'
+        'mediasort',
+        'appdirs',
+        'yaml',
     ],
     classifiers=[
         "Development Status :: 4 - Beta",
