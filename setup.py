@@ -20,7 +20,7 @@ setup(
     install_requires=[
         'mediasort'
         'appdirs'
-        'pyaml'
+        'pyyaml'
     ],
     classifiers=[
         "Development Status :: 4 - Beta",
