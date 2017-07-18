@@ -63,7 +63,7 @@ def parse_arguments():
         '-a',
         '--ask',
         action='store_true',
-        help="Asks before sorting")
+        help="Asks the user always")
 
     return vars(parser.parse_args())
 
