@@ -64,6 +64,11 @@ def parse_arguments():
         '--ask',
         action='store_true',
         help="Asks the user always")
+    parser.add_argument(
+        '-s',
+        '--simulate',
+        action='store_true',
+        help="Just simulate downloading and moving files. Simulate is always verbose")
 
     return vars(parser.parse_args())
 
@@ -169,6 +174,10 @@ def main():
     ARGS = parse_arguments()
     settings = parse_configfile(ARGS['config'])
 
+    if ARGS['simulate']:
+        settings['general']['simulate'] = True
+        ARGS['verbose'] = True
+
     init_logging(ARGS['verbose'])
 
     # modify settings
@@ -210,7 +219,7 @@ def main():
                        ids,
                        settings['paths'],
                        settings['languages'],
-                       settings['overwrite'],
+                       settings['general'],
                        callbacks=callbacks)
 
 

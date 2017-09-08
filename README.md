@@ -78,6 +78,13 @@ optional arguments:
 ```
 ---
 
+general:
+  simulate: false
+  overwrite:
+    media: false
+    nfo: true
+    images: true
+
 videofiles:
   minimal_file_size: 300
   allowed_extensions: ['mkv', 'avi']
@@ -128,11 +135,6 @@ paths:
     charart: charart
     clearart: clearart
     art: art
-
-overwrite:
-  media: false
-  nfo: true
-  images: true
 
 languages:
   metadata: ['de', 'en']
