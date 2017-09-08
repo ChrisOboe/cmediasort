@@ -94,6 +94,7 @@ tmdb:
   cache_validity: 7
   use_https: true
   certification_country: de
+  search_language: de
   sizes:
     poster: original
     background: original
