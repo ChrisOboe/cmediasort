@@ -1,3 +1,6 @@
+# symlink to dev mediasort
+mediasort
+
 # ---> Python
 # Byte-compiled / optimized / DLL files
 __pycache__/
